@@ -84,6 +84,7 @@ body {
 .product-title {
     font-weight: bold;
     margin-bottom: 10px;
+    alig: center;
 }
 
 .product-price {
@@ -179,6 +180,7 @@ body {
     /* background-color: yellow; */
 }
 .plant_heading{
+    align-items: center;
     width: 400px;
     text-align: center;
     margin: 20px;

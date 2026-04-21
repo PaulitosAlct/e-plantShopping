@@ -281,18 +281,18 @@ function ProductList({ onHomeClick }) {
             {!showCart ? (
                 <div className="product-grid">
                     {plantsArray.map((category, index) => (
-                        <div key={index} className="category-section">
-                            <h2>{category.category}</h2>
-                            <div className="plant-items">
+                        <div key={index} className="product-title">
+                            <h2 className="plant_heading">{category.category}</h2>
+                            <div className="product-list">
                                 {category.plants.map((plant, i)=> (
-                                    <div key={i} className="plant-card">
-                                        <div className="sale-badge">SALE</div>
-                                        <img src={plant.image} alt={plant.name} className="plant-image" />
-                                        <h3>{plant.name}</h3>
-                                        <p className="plant-price">{plant.cost}</p>
-                                        <p className="plant-description">{plant.description}</p>
+                                    <div key={i} className="product-card">
+                                        {/* <div className="sale-badge">SALE</div> */}
+                                        <img src={plant.image} alt={plant.name} className="product-image" />
+                                        <h3 className="plantname_heading">{plant.name}</h3>
+                                        <p className="product-price">{plant.cost}</p>
+                                        <p>{plant.description}</p>
                                         <button
-                                            className="add-to-cart"
+                                            className="product-button"
                                             onClick={() => handleAddToCart(plant)}
                                             disabled={!!addedToCart[plant.name]}
                                             >
