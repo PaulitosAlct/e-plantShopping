@@ -280,30 +280,27 @@ function ProductList({ onHomeClick }) {
 
             {!showCart ? (
                 <div className="product-grid">
-                    {plantsArray.map((category, index) => (
-                        <div key={index} className="product-title">
-                            <h2 className="plant_heading">{category.category}</h2>
+                    {plantsArray.map((item, index) => (
+                       <div key={index}>
+                            <h2 className="plant_heading">{item.category}</h2>
                             <div className="product-list">
-                                {category.plants.map((plant, i)=> (
+                                {item.plants.map((plant, i) => (
                                     <div key={i} className="product-card">
-                                        {/* <div className="sale-badge">SALE</div> */}
-                                        <img src={plant.image} alt={plant.name} className="product-image" />
                                         <h3 className="plantname_heading">{plant.name}</h3>
+                                        <img className="product-image" src={plant.image} alt={plant.name} />
                                         <p className="product-price">{plant.cost}</p>
                                         <p>{plant.description}</p>
                                         <button
                                             className="product-button"
-                                            onClick={() => handleAddToCart(plant)}
-                                            disabled={!!addedToCart[plant.name]}
-                                            >
-                                                {addedToCart[plant.name] ? "Added" : "Add to Cart"}
-                                            </button>
+                                        >
+                                            Add to Cart
+                                        </button>
                                     </div>
                                 ))}
                             </div>
-                        </div>
+                                
+                       </div> 
                     ))}
-
                 </div>
             ) : (
                 <CartItem onContinueShopping={handleContinueShopping} />
