@@ -6,10 +6,11 @@ import { useDispatch, useSelector } from 'react-redux';
 
 function ProductList({ onHomeClick }) {
     const [showCart, setShowCart] = useState(false);
-    const [addedToCart, setAddedToCart] = useState(false);
+    const [addedToCart, setAddedToCart] = useState();
     const [showPlants, setShowPlants] = useState(false); // State to control the visibility of the About Us page
     const dispatch = useDispatch();
     const cartItems = useSelector(state => state.cart.items);
+    const cart = useSelector((state) => state.cart);
 
     const plantsArray = [
         {
@@ -267,6 +268,7 @@ function ProductList({ onHomeClick }) {
         }));
     };
 
+
     const totalItems = cartItems.reduce((total, item) => total + item.quantity,0);
 
     return (
@@ -296,10 +298,10 @@ function ProductList({ onHomeClick }) {
                                     <path d="M42.3,72H221.7l-26.4,92.4A15.9,15.9,0,0,1,179.9,176H84.1a15.9,15.9,0,0,1-15.4-11.6L32.5,37.8A8,8,0,0,0,24.8,32H8" fill="none" stroke="#faf9f9" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="mainIconPathAttribute">
                                     </path>
                                 </svg>
-                            </h1>
-                            {totalItems > 0 && (
+                                 {totalItems >= 0 && (
                                     <div className="cart_quantity_count">{totalItems}</div>
                                 )}
+                            </h1>
                         </a>
                     </div>
                 </div>
@@ -308,27 +310,22 @@ function ProductList({ onHomeClick }) {
 
 
             {!showCart ? (
-                <div className="product-grid">
-                    {plantsArray.map((item, index) => (
-                       <div key={index}>
-                            <div className="plant_heading">
-                                <h2 className="plantname_heading">{item.category}</h2>
-                            </div>
+                <div>
+                {plantsArray.map((item, index) => (
+                    <div className="product-grid" key={index}>
+                                <h2 className="plant_heading">{item.category}</h2>
                             <div className="product-list">
                                 {item.plants.map((plant, i) => (
                                     <div key={i} className="product-card">
-                                        <h3 className="product-title">{plant.name}</h3>
+                                        <div className="product-title">{plant.name}</div>
                                         <img className="product-image" src={plant.image} alt={plant.name} />
-                                        <p className="product-price">{plant.cost}</p>
-                                        <p>{plant.description}</p>
-                                        <button
-                                            
-                                            className="product-button"
-                                            onClick={() => handleAddToCart({name: plant.name, cost: plant.cost, image: plant.image})}
-                                            disabled={!!addedToCart[plant.name]}
-                                        >
-                                            {addedToCart[plant.name] ? "Added to Cart" : "Add to Cart"}
-                                        </button>
+                                        <div className="product-price">{plant.cost}</div>
+                                        <div className="product-description">{plant.description}</div>
+                                        {cart.items.some(item => item.name === plant.name) ? (
+                                            <button className="product-button added-to-cart">Added to Cart</button>
+                                        ) : (
+                                            <button className="product-button" onClick={() => handleAddToCart(plant)}>Add to Cart</button>
+                                        )}
                                     </div>
                                 ))}
                             </div>
